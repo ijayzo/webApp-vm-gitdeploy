@@ -9,6 +9,6 @@ public class HelloController {
     @GetMapping("")
     public String hello() {
 
-        return "You know what the green grape told the purple grape? BREATHE boooooooooo";
+        return "You know what the green grape told the purple grape? BREATHE boooooooooo... this should only come up if you really messed up";
     }
 }
