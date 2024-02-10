@@ -1,4 +1,4 @@
-name: GitHub for IT Pro CI/CD Pipeline
+name: WebApp Deployed by GitHub for IT Pro CI/CD Pipeline on Azure VM
 
 env:
   OUTPUT_PATH: ${{ github.workspace }}
@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    # checkout code from repo
+    # checkout code from repo This takes the files/code from my repository and puts it into $github.workspace for my workflow to access it. 
     - name: checkout repo
       uses: actions/checkout@v1
 
@@ -21,11 +21,18 @@ jobs:
         ls '${{ env.OUTPUT_PATH }}\IaC\AzCLI'
 
     - name: provision virtual machine in azure
+    # deploy and provision the VM:
+    # #This first part is declaring some environment variables, here I am setting my Azure Resource Group name, the region I want the 
+    #resource group to be deployed in, the name of my virtual machine (server) and the name of the admin login account that will be created for that VM.
       env:
-        RESOURCE_GROUP: rg-githubdeploy
-        RESOURCE_GROUP_REGION: ukwest
-        SERVER_NAME: githubactions
-        ADMIN_LOGIN: sarah
+        RESOURCE_GROUP: webAppOnOneVM-rg
+        RESOURCE_GROUP_REGION: us-west-3
+        SERVER_NAME: webDeployOnGithubActionsWithAzureVm
+        ADMIN_LOGIN: isaias
+
+
+    #The second stage of the step is telling my workflow to call my PowerShell script and pass in the following variables from the workflow and GitHub Secrets store. 
+    # To allow GitHub Actions to deploy resources within my Azure Subscription I have created an Azure Service Principal.  
       run: >
         powershell -command "& '${{ env.OUTPUT_PATH }}\IaC\AzCLI\vmcreation.ps1'" 
         -servicePrincipal ${{ secrets.SERVICE_PRINCIPAL_APPID }}
