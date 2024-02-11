@@ -25,7 +25,7 @@ jobs:
     # #This first part is declaring some environment variables, here I am setting my Azure Resource Group name, the region I want the 
     #resource group to be deployed in, the name of my virtual machine (server) and the name of the admin login account that will be created for that VM.
       env:
-        RESOURCE_GROUP: webAppOnOneVM-rg
+        RESOURCE_GROUP: key-vault
         RESOURCE_GROUP_REGION: us-west-3
         SERVER_NAME: webDeployOnGithubActionsWithAzureVm
         ADMIN_LOGIN: isaias
